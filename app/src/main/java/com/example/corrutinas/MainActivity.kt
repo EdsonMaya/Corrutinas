@@ -50,12 +50,14 @@ fun GreetingPreview() {
     }
 }
 
-
 @Composable
 fun RuletaView(studentViewModel: StudentViewModel) {
     Column(Modifier.fillMaxSize()){
         Text(text = studentViewModel.selectedStudent)
-        Button(onClick = { studentViewModel.getData()}){
+        Button(
+            onClick = { studentViewModel.getData()},
+            enabled = studentViewModel.enabledButton
+            ){
             Text(text = "Tendre suerte")
         }
     }

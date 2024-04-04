@@ -10,16 +10,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 class StudentViewModel: ViewModel() {
-
     var selectedStudent by mutableStateOf("") //sera nombre de estudiante
+    var enabledButton by mutableStateOf(true)
 
     fun getData(){
         //Iniciar corrutina
         viewModelScope.launch{
+            enabledButton = false
             selectedStudent = "Buscando estudiante"
-            getRandomStudent()
+            try {
+                getRandomStudent()
+            } catch (e: Exception) {
+                selectedStudent = "Error procesando el hilo"
+            }finally {
+                enabledButton = true
+            }
         }
     }
     suspend fun getRandomStudent(){
